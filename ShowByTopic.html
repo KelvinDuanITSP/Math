@@ -1,0 +1,42 @@
+<HTML><BODY>
+<div align="center">
+	<label for="topics" style="color:red;font-size:15px;">Select a topic</label>
+	<select name="topics" id="topics" Onchange="setQuestion(1)">
+	  <option value="Algebra" startID="945">Algebra</option>
+	  <option value="Trigonomertry" startID="1">Trigonometry</option>
+	  <option value="Cosine_Law_Applications" startID="1">Cosine Law Applications</option>
+	  <option value="Test_2021-01-13" startID="1">Test_2021-01-13</option>
+	</select>	
+	<button	id="btnPre" onclick="move(-1)">Previous&lt;&lt;</button>
+	<input 	type="text" size="4" id="QuestionID" name="fname" value="0">
+	<button onclick="move(0)">GO</button>
+	<button id="btnNxt" onclick="move(1)">&gt;&gt;Next</button>
+	<button id="btnAns"  style="width: 120px" onclick="toggleAnswer()">Show Answer</button><br><br>
+	<hr>
+	<div>	<img id="Q" src=""/></div><br><br>
+	<hr>
+	<div>	<img id="A" src=""/></div>
+</div>
+<script>
+function setQuestion(reset)	{
+	if (reset==1) document.getElementById("QuestionID").value=getTopicStartID();
+	hideAnswer();		
+	o("Q").src=getTopic()+"/Q"+seq(i=parseInt(o("QuestionID").value))+".png";
+}
+function getTopic(){return document.getElementById("topics").value;}
+function getTopicStartID(){return document.getElementById("topics").options[document.getElementById('topics').selectedIndex].getAttribute('startID');}
+function seq(i)			{s='0000'+i.toString(); 	return s.substring(s.length-4, s.length);}
+function o(s)			{return document.getElementById(s);}
+function hideAnswer() 	{o("A").src=""; 	o("btnAns").innerText="Show Answer";}
+function move(i) 		{o("QuestionID").value=(parseInt(o("QuestionID").value)+i).toString(); setQuestion(0);}
+function toggleAnswer() {
+	if (o("A").getAttribute('src')=='') {
+		o("A").src = getTopic()+"/Q"+seq(parseInt(o("QuestionID").value))+"_A.png"; 
+		o("btnAns").innerText  ="Hide Answer";
+	} else hideAnswer();
+}
+
+setQuestion(1);
+
+</script>
+<BODY/><HTML/>
